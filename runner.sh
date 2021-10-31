@@ -17,7 +17,12 @@ sleepPid=
 
 # Forward signals to blocking processes
 stop() {
-  kill -s "$1" "$nginxPid" &
+  kill -s "$1" "$nginxPid"
+  if test "$1" != "SIGHUP"
+  then
+    # We're expecting nginx to stop
+    wait "$nginxPid"
+  fi
   kill -s "$1" "$sleepPid"
 }
 
