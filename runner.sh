@@ -6,8 +6,9 @@ then
   git clone "$GIT_REPO" . || exit 1
 fi
 
-# Generate nginx config
+# Generate and verify nginx config
 envsubst < /template.conf > /etc/nginx/conf.d/default.conf
+nginx -t || exit 1
 
 # Start nginx in background
 nginx -g "daemon off;" &
