@@ -5,7 +5,6 @@ A docker image to serve static files from a git repo and keep them up to date.
 Run the image specifying `GIT_REPO` and optionally aditional environment
 variables. All avalable are specified below:
 
---------------------------------------------------------------------
 | Name         | Default | Description                             |
 |--------------|---------|-----------------------------------------|
 | GIT_REPO     |         | Url of git repo to clone                |
@@ -13,4 +12,3 @@ variables. All avalable are specified below:
 | LOCATION_CFG |         | Additional config in `location /`-block |
 | SERVER_CFG   |         | Additional config in `server`-block     |
 | INTERVAL     | 3600    | How many seconds in between git pulls   |
---------------------------------------------------------------------
