@@ -1,4 +1,4 @@
-FROM nginx:1.21.3-alpine
+FROM nginx:1.23.2-alpine
 
 RUN apk update && apk add \
       git \

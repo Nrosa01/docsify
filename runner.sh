@@ -3,7 +3,7 @@
 # Clone repo if not done already
 if ! git status > /dev/null 2>&1
 then
-  git clone "$GIT_REPO" . || exit 1
+  git clone --depth 1 "$GIT_REPO" . || exit 1
 fi
 
 # Generate and verify nginx config
