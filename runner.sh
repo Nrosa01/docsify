@@ -35,6 +35,7 @@ trap 'stop SIGTERM' SIGTERM
 while kill -0 "$nginxPid"
 do
   git pull
+  git submodule update --init --recursive
   sleep "$INTERVAL" &
   sleepPid=$!
   wait "$sleepPid"
