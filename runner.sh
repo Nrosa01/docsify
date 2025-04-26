@@ -44,7 +44,5 @@ trap 'stop SIGTERM' SIGTERM
 while kill -0 "$docsifyPid"
 do
   git pull
-  sleep "$INTERVAL" &
-  sleepPid=$!
-  wait "$sleepPid"
+  sleep "$INTERVAL"
 done
