@@ -1,5 +1,10 @@
 #! /bin/sh
 
+if [ -z "$HOST" ]
+then
+  mkdir -p -m 0600 ~/.ssh && ssh-keyscan "$HOST" >> ~/.ssh/known_hosts
+fi
+
 # Clone repo if not done already
 if ! git status > /dev/null 2>&1
 then
