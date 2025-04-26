@@ -10,3 +10,4 @@ variables. All available are specified below:
 | GIT_REPO     |         | Url of git repo to clone                      |
 | INTERVAL     | 3600    | How many seconds in between git pulls         |
 | HOST         |         | Host of the git repo, needed if using ssh keys|
+| BRANCH       |         | Branch of the repo to use                     |

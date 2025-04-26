@@ -1,6 +1,6 @@
 #! /bin/sh
 
-if [ -z "$HOST" ]
+if [ "$HOST" ]
 then
   mkdir -p -m 0600 ~/.ssh && ssh-keyscan "$HOST" >> ~/.ssh/known_hosts
 fi
@@ -8,10 +8,16 @@ fi
 # Clone repo if not done already
 if ! git status > /dev/null 2>&1
 then
-  git clone --depth 1 "$GIT_REPO" repo || exit 1
+  git clone "$GIT_REPO" repo || exit 1
 fi
 
 cd repo
+
+if [ "$BRANCH" ]
+then
+  git checkout "$BRANCH"
+fi
+
 
 # Start docsify in background
 docsify serve . &
