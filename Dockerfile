@@ -1,17 +1,10 @@
-FROM nginx:1.23.2-alpine
+FROM node:23-alpine
 
+WORKDIR /docs
+RUN npm install -g docsify-cli@4.4.4
 RUN apk update && apk add \
       git \
       gettext
-WORKDIR /usr/share/nginx/html
-RUN rm -r *
-COPY template.conf /template.conf
 COPY runner.sh /runner.sh
-
-ENV SUBDIR /
-ENV LOCATION_CFG ""
-ENV SERVER_CFG ""
 ENV INTERVAL 3600
-
-# NB: exec is vital to forward signals to the runner
 CMD exec sh /runner.sh
