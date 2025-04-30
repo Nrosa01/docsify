@@ -8,7 +8,7 @@ fi
 # Clone repo if not done already
 if ! git status > /dev/null 2>&1
 then
-  git clone "$GIT_REPO" repo || exit 1
+  git clone "$GIT_REPO" . || exit 1
 fi
 
 cd repo
@@ -19,18 +19,22 @@ then
 fi
 
 
-# Start docsify in background
-docsify serve . &
-docsifyPid=$!
+# Generate and verify nginx config
+envsubst < /template.conf > /etc/nginx/conf.d/default.conf
+nginx -t || exit 1
+
+# Start nginx in background
+nginx -g "daemon off;" &
+nginxPid=$!
 sleepPid=
 
 # Forward signals to blocking processes
 stop() {
-  kill -s "$1" "$docsifyPid"
+  kill -s "$1" "$nginxPid"
   if test "$1" != "SIGHUP"
   then
-    # We're expecting docsify to stop
-    wait "$docsifyPid"
+    # We're expecting nginx to stop
+    wait "$nginxPid"
   fi
   kill -s "$1" "$sleepPid"
 }
@@ -41,7 +45,7 @@ trap 'stop SIGQUIT' SIGQUIT
 trap 'stop SIGTERM' SIGTERM
 
 # While docsify is running
-while kill -0 "$docsifyPid"
+while kill -0 "$nginxPid"
 do
   git pull
   sleep "$INTERVAL"
