@@ -1,9 +1,19 @@
+version: "3.8"
 services:
   site:
     image: dtekcth/docsify
     build: .
     environment:
-      GIT_REPO: https://git.acorneroftheweb.com/pingu/temporary.git
-      INTERVAL: 60
+      USER_UID: ${USER_UID}
+      USER_GID: ${USER_GID}
+      GIT_REPO: ${GIT_REPO}
+      GIT_BRANCH: ${GIT_BRANCH}
+      INTERVAL: ${INTERVAL}
+      VERBOSE: ${VERBOSE}
     ports:
       - "4292:8080"
+    volumes:
+      - /volume1/docker/docsify_lore:/docs/repo
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/TZ:/etc/TZ:ro
+    restart: unless-stopped
