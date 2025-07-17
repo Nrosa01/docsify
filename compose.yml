@@ -6,4 +6,4 @@ services:
       GIT_REPO: https://git.acorneroftheweb.com/pingu/temporary.git
       INTERVAL: 60
     ports:
-      - "8000:80"
+      - "4292:8080"
